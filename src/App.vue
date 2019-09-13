@@ -1,29 +1,65 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <div class="app">
+    <div class="nav">
+      <div class="float-left">
+        <router-link class="nav-item float-left" to="/">
+          <p><b>Dungeon</b>Guide</p>
+        </router-link>
+        <router-link class="nav-item float-left" to="/campaigns">
+          <p>Campaigns</p>
+        </router-link>
+        <router-link class="nav-item float-left" to="/about">
+          <p>About</p>
+        </router-link>
+      </div>
+      <div class="float-right">
+        <router-link class="nav-item float-right" to="/login">
+          <p>login</p>
+        </router-link>
+      </div>
+       
     </div>
     <router-view />
   </div>
 </template>
 
 <style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+body {
+  margin: 0px;
+  padding: 0px;
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+
+.nav {
+  width: 100%;
+  height: 50px;
+  overflow: hidden;
+
+  background-color: rgb(39, 38, 38);
+  .nav-item {
+    height: 50px;  
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 10px;
+    color: rgb(241, 241, 241);
   }
+
+  .nav-item:hover {
+    background-color: rgb(104, 104, 104);
+  }
+
+  p {
+    font-size: 18px;
+    float: left;
+  }
+}
+
+.float-left {
+  margin-right: 20px;
+  float: left;
+}
+
+.float-right {
+  margin-left: 20px;
+  float: right;
 }
 </style>
