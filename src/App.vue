@@ -2,27 +2,33 @@
   <div class="app">
     <div class="nav">
       <div class="float-left">
-        <router-link class="nav-item float-left" to="/">
+        <router-link class="nav-item float-left title" to="/">
           <p><b>Dungeon</b>Guide</p>
         </router-link>
-        <router-link class="nav-item float-left" to="/campaigns">
+        <router-link class="nav-item float-left button-Text" to="/campaigns">
           <p>Campaigns</p>
         </router-link>
-        <router-link class="nav-item float-left" to="/about">
+        <router-link class="nav-item float-left button-Text" to="/about">
           <p>About</p>
         </router-link>
       </div>
       <div class="float-right">
-        <router-link class="nav-item float-right" to="/login">
-          <p>login</p>
-        </router-link>
+        <Login/>
       </div>
-       
     </div>
     <router-view />
   </div>
 </template>
 
+<script>
+import Login from "@/components/Login.vue"
+export default {
+  components: {
+    Login
+  }
+}
+
+</script>
 <style lang="scss">
 body {
   margin: 0px;
@@ -39,7 +45,7 @@ body {
     height: 50px;  
     padding-left: 10px;
     padding-right: 10px;
-    line-height: 10px;
+    
     color: rgb(241, 241, 241);
   }
 
@@ -47,9 +53,18 @@ body {
     background-color: rgb(104, 104, 104);
   }
 
-  p {
-    font-size: 18px;
+  .button-Text {
+    font-size: 15px;
+    line-height: 18px;
     float: left;
+    text-decoration: none;
+  }
+
+  .title {
+    font-size: 18px;
+    line-height: 10px;
+    float: left;
+    text-decoration: none;
   }
 }
 
@@ -61,5 +76,10 @@ body {
 .float-right {
   margin-left: 20px;
   float: right;
+}
+
+.login-Button {
+  background-color: rgb(39, 38, 38); 
+  border: none;
 }
 </style>
