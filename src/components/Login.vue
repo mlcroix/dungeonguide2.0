@@ -1,13 +1,21 @@
 <template>
     <div class="login-Container">
         <button class="Button">
-          <p>register</p>
+          <p>Sign up</p>
         </button>
-        <button class="Button">
-          <p>login</p>
-        </button>
-        <input v-model="Username"> 
-        <input v-model="Password">           
+        <form @submit.prevent="Login">
+            <button class="Button" type="submit">
+            <p>Login</p>
+            </button>
+            <span class="login-Forum">
+                <span class="input-Name">Username</span>
+                <input class="input-Form" v-model="Username"> 
+            </span>
+            <span class="login-Forum">
+                <span class="input-Name">Password</span> 
+                <input class="input-Form" v-model="Password" type="password">      
+            </span>
+        </form>  
     </div>
 </template>
 
@@ -18,9 +26,14 @@ export default {
     },
     data() {
         return {
+            Username: "",
+            Password: ""
         }
     },
     methods: {
+        Login() {
+            console.log(this.Username + " " + this.Password );
+        }
     }
 }
 </script>
@@ -38,5 +51,29 @@ export default {
 
 .Button:hover {
     background-color: rgb(104, 104, 104);
-  }
+}
+
+form {
+    float: right;
+}
+
+.login-Forum {
+    margin-right: 20px;
+}
+
+.input-Form {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    outline: none;
+    caret-color: white;
+    color: white;
+}
+
+.input-Name {
+    margin-top: 3px;
+    position: absolute;
+    font-size: 10px;
+    color: white;
+}
 </style>
