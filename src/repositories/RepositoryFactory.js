@@ -1,7 +1,9 @@
 import CampaignRepository from "./CampaignRepository";
+import PlayerRepository from "./PlayerRepository";
 
 const repositories = {
-  Campaigns: CampaignRepository
+  Campaigns: CampaignRepository,
+  Players: PlayerRepository
 };
 
 export const RepositoryFactory = {

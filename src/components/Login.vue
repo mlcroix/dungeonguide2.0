@@ -18,8 +18,9 @@
         </form>  
     </div>
 </template>
-
 <script>
+import { RepositoryFactory } from "../repositories/RepositoryFactory";
+const PlayerRepository = RepositoryFactory.get('Players')
 export default {
     name: "Login",
     props: {
@@ -31,8 +32,12 @@ export default {
         }
     },
     methods: {
-        Login() {
-            console.log(this.Username + " " + this.Password );
+        async Login () {
+            let loginData = {"username": this.Username, "password": this.Password};
+            let response = await PlayerRepository.Login(loginData).then(response => {
+                console.log(response);
+            });
+            
         }
     }
 }
