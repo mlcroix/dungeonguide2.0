@@ -8,7 +8,6 @@ export default {
 
   Login(data) {
     return Repository.post(`${resource}/Login`, data).then(response => {
-      console.log(response);
       if (response.status != 200) {
         return false;
       } else {
@@ -19,7 +18,6 @@ export default {
 
   SignUP(data) {
     let response = Repository.post(`${resource}/signup`, data);
-    console.log(response);
     return response;
   }
 };

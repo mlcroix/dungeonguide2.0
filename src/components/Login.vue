@@ -1,21 +1,28 @@
 <template>
   <div class="login-Container">
-    <button class="Button">
-      <p>Sign up</p>
-    </button>
-    <form @submit.prevent="Login">
-      <button class="Button" type="submit">
-        <p>Login</p>
-      </button>
-      <span class="login-Forum">
-        <span class="input-Name">Username</span>
-        <input class="input-Form" v-model="Username" />
-      </span>
-      <span class="login-Forum">
-        <span class="input-Name">Password</span>
-        <input class="input-Form" v-model="Password" type="password" />
-      </span>
-    </form>
+    <div v-if="!LoggedIn">
+        <button class="Button">
+        <p>Sign up</p>
+        </button>
+        <form @submit.prevent="Login">
+        <button class="Button" type="submit">
+            <p>Login</p>
+        </button>
+        <span class="login-Forum">
+            <span class="input-Name">Username</span>
+            <input class="input-Form" v-model="Username" />
+        </span>
+        <span class="login-Forum">
+            <span class="input-Name">Password</span>
+            <input class="input-Form" v-model="Password" type="password" />
+        </span>
+        </form>
+    </div>
+    <div v-else>
+         <button class="Button" v-on:click="SignOut()">
+        <p>Sign Out</p>
+        </button>
+    </div>
   </div>
 </template>
 <script>
@@ -27,15 +34,31 @@ export default {
   data() {
     return {
       Username: "",
-      Password: ""
+      Password: "",
+      LoggedIn: false
     };
+  },
+  created() {
+    if(localStorage.User) {
+        this.LoggedIn = true;
+    }
   },
   methods: {
     async Login() {
       let loginData = { username: this.Username, password: this.Password };
       await PlayerRepository.Login(loginData).then(response => {
-        console.log(response);
+        if (!response) {
+            console.log("wrong password");
+        } else {
+            const parsed = JSON.stringify(response);
+            localStorage.User = parsed;
+            this.LoggedIn = true;
+        }
       });
+    },
+    SignOut () {
+        localStorage.removeItem('User');
+        this.LoggedIn = false;
     }
   }
 };
@@ -50,6 +73,7 @@ export default {
   padding-right: 10px;
   line-height: 10px;
   color: rgb(241, 241, 241);
+  margin-right: 20px;
 }
 
 .Button:hover {
