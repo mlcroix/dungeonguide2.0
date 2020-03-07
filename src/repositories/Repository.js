@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseDomein = "https://dungeonguidev2.herokuapp.com";
+const baseDomein = "https://dungeonguide.herokuapp.com";
 const baseUrl = `${baseDomein}`;
 
 export default axios.create({

@@ -1,27 +1,27 @@
 <template>
   <div class="login-Container">
     <div v-if="!LoggedIn">
-        <button class="Button">
+      <button class="Button">
         <p>Sign up</p>
-        </button>
-        <form @submit.prevent="Login">
+      </button>
+      <form @submit.prevent="Login">
         <button class="Button" type="submit">
-            <p>Login</p>
+          <p>Login</p>
         </button>
         <span class="login-Forum">
-            <span class="input-Name">Username</span>
-            <input class="input-Form" v-model="Username" />
+          <span class="input-Name">Username</span>
+          <input class="input-Form" v-model="Username" />
         </span>
         <span class="login-Forum">
-            <span class="input-Name">Password</span>
-            <input class="input-Form" v-model="Password" type="password" />
+          <span class="input-Name">Password</span>
+          <input class="input-Form" v-model="Password" type="password" />
         </span>
-        </form>
+      </form>
     </div>
     <div v-else>
-         <button class="Button" v-on:click="SignOut()">
+      <button class="Button" v-on:click="SignOut()">
         <p>Sign Out</p>
-        </button>
+      </button>
     </div>
   </div>
 </template>
@@ -39,8 +39,8 @@ export default {
     };
   },
   created() {
-    if(localStorage.User) {
-        this.LoggedIn = true;
+    if (localStorage.User) {
+      this.LoggedIn = true;
     }
   },
   methods: {
@@ -48,17 +48,17 @@ export default {
       let loginData = { username: this.Username, password: this.Password };
       await PlayerRepository.Login(loginData).then(response => {
         if (!response) {
-            console.log("wrong password");
+          console.log("wrong password");
         } else {
-            const parsed = JSON.stringify(response);
-            localStorage.User = parsed;
-            this.LoggedIn = true;
+          const parsed = JSON.stringify(response);
+          localStorage.User = parsed;
+          this.LoggedIn = true;
         }
       });
     },
-    SignOut () {
-        localStorage.removeItem('User');
-        this.LoggedIn = false;
+    SignOut() {
+      localStorage.removeItem("User");
+      this.LoggedIn = false;
     }
   }
 };
