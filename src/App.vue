@@ -16,7 +16,7 @@
         <Login v-on:Login="SetLoggedIn" v-bind:LoggedIn="LoggedIn"></Login>/>
       </div>
     </div>
-    <router-view v-bind:LoggedIn="LoggedIn" v-bind:PlayerID="PlayedID" />
+    <router-view v-bind:LoggedIn="LoggedIn" />
   </div>
 </template>
 

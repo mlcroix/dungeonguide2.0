@@ -1,8 +1,18 @@
 <template>
   <div>
-    <div v-for="campaign in Campaigns" :key="campaign.name">
-      <div class="campaign">
-        {{ campaign.name }}
+    <div v-if="!LoggedIn">
+      <p>You need to be logged in.</p>
+    </div>
+    <div v-else>
+      <div v-if="!IsLoaded">
+        <p>Loading</p>
+      </div>
+      <div v-else>
+        <div v-for="campaign in Campaigns" :key="campaign.name">
+          <div class="campaign">
+            {{ campaign.name }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -15,21 +25,36 @@ const CampaignRepository = RepositoryFactory.get("Campaigns");
 export default {
   name: "campaigns",
   components: {},
+  props: {
+    LoggedIn: Boolean
+  },
   data() {
     return {
-      isLoaded: false,
+      IsLoaded: false,
       Campaigns: []
     };
   },
+  watch: {
+    LoggedIn: function() {
+        if (this.LoggedIn) {
+          console.log("noticed playerid");
+          this.PlayerID = JSON.parse(localStorage.User).id;
+          this.fetch();
+        }
+    }
+  },
   created() {
-    this.fetch();
+    if (this.LoggedIn) {
+      this.PlayerID = JSON.parse(localStorage.User).id;
+      this.fetch();
+    }
   },
   methods: {
     async fetch() {
-      console.log(JSON.parse(localStorage.User).id)
-      await CampaignRepository.getPlayerCampaigns(JSON.parse(localStorage.User).id ).then(response => {
+      console.log(JSON.parse(localStorage.User).id);
+      await CampaignRepository.getPlayerCampaigns(this.PlayerID).then(response => {
         this.Campaigns = response;
-        this.isLoaded = true;
+        this.IsLoaded = true;
       });
       
     }
