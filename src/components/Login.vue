@@ -30,18 +30,14 @@ import { RepositoryFactory } from "../repositories/RepositoryFactory";
 const PlayerRepository = RepositoryFactory.get("Players");
 export default {
   name: "Login",
-  props: {},
+  props: {
+    LoggedIn: Boolean
+  },
   data() {
     return {
       Username: "",
       Password: "",
-      LoggedIn: false
     };
-  },
-  created() {
-    if (localStorage.User) {
-      this.LoggedIn = true;
-    }
   },
   methods: {
     async Login() {
@@ -52,13 +48,13 @@ export default {
         } else {
           const parsed = JSON.stringify(response);
           localStorage.User = parsed;
-          this.LoggedIn = true;
+          this.$emit('Login', true, response.id);
         }
       });
     },
     SignOut() {
       localStorage.removeItem("User");
-      this.LoggedIn = false;
+      this.$emit('Login', false, undefined);
     }
   }
 };

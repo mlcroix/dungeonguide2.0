@@ -13,10 +13,10 @@
         </router-link>
       </div>
       <div class="float-right">
-        <Login/>
+        <Login v-on:Login="SetLoggedIn" v-bind:LoggedIn="LoggedIn"></Login>/>
       </div>
     </div>
-    <router-view />
+    <router-view v-bind:LoggedIn="LoggedIn" v-bind:PlayerID="PlayedID" />
   </div>
 </template>
 
@@ -25,6 +25,25 @@ import Login from "@/components/Login.vue"
 export default {
   components: {
     Login
+  },
+  data() {
+    return {
+      LoggedIn: false,
+      PlayedID: undefined
+    };
+  },
+  created() {
+    if (localStorage.User) {
+      this.LoggedIn = true;
+      this.PlayerID = JSON.parse(localStorage.User).id
+    }
+  },
+  methods: {
+    SetLoggedIn(loginState, playerID) {
+      this.LoggedIn = loginState;
+      this.PlayedID = playerID;
+      console.log(this.LoggedIn);
+    }
   }
 }
 
